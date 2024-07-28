@@ -1,0 +1,24 @@
+<group name="envoy,">
+  <rule id="100001" level="3">
+    <decoded_as>envoy-logs</decoded_as>
+    <description>Envoy HTTP request log</description>
+    <group>envoy</group>
+    <options>
+      <dynamic_decode_field>timestamp</dynamic_decode_field>
+      <dynamic_decode_field>method</dynamic_decode_field>
+      <dynamic_decode_field>path</dynamic_decode_field>
+      <dynamic_decode_field>protocol</dynamic_decode_field>
+      <dynamic_decode_field>response_code</dynamic_decode_field>
+      <dynamic_decode_field>response_flags</dynamic_decode_field>
+      <dynamic_decode_field>bytes_received</dynamic_decode_field>
+      <dynamic_decode_field>bytes_sent</dynamic_decode_field>
+      <dynamic_decode_field>duration</dynamic_decode_field>
+      <dynamic_decode_field>x_forwarded_for</dynamic_decode_field>
+      <dynamic_decode_field>user_agent</dynamic_decode_field>
+      <dynamic_decode_field>request_id</dynamic_decode_field>
+      <dynamic_decode_field>authority</dynamic_decode_field>
+      <dynamic_decode_field>upstream_host</dynamic_decode_field>
+      <dynamic_decode_field>request_body</dynamic_decode_field>
+    </options>
+  </rule>
+</group>

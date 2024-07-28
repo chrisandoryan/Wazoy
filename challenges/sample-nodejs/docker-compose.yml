@@ -1,0 +1,26 @@
+version: '3'
+
+services:
+  app:
+    build: ./app
+    networks:
+      - sample-nodejs-network
+    expose:
+      - 3000
+
+  envoy:
+    image: envoyproxy/envoy:v1.31-latest
+    networks:
+      - sample-nodejs-network
+    volumes:
+      - ../../envoy/envoy.yaml:/etc/envoy/envoy.yaml
+      - ./logs/envoy:/var/log/envoy
+    ports:
+      - "8080:8080"
+    environment:
+      - ENVOY_UID=0
+      - ENVOY_GID=0
+
+networks:
+  sample-nodejs-network:
+    driver: bridge
