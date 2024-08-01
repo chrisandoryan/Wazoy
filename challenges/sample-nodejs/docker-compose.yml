@@ -7,19 +7,46 @@ services:
       - sample-nodejs-network
     expose:
       - 3000
+    volumes:
+      - ./system_volume/var/log:/var/log
+      - ./system_volume/var/run/docker.sock:/var/run/docker.sock:ro
+      # - ./system_volume/etc/localtime:/etc/localtime:ro
+      # - ./system_volume/etc/timezone:/etc/timezone
+
+  app-wazuh-agent:
+    build: 
+      context: ../wazuh-agent
+      args:
+        - WAZUH_MANAGER_IP=54.251.190.103
+        - WAZUH_AGENT_NAME=sample-nodejs-agent-002
+        - CONTAINER_ROOT_PATH=/var/volume
+    networks:
+      - sample-nodejs-network
+    expose:
+      - 1514
+    volumes:
+      - ./system_volume/var/log:/var/log
+      - ./system_volume/var/run/docker.sock:/var/run/docker.sock:ro
+      # - ./system_volume/etc/localtime:/etc/localtime:ro
+      # - ./system_volume/etc/timezone:/etc/timezone
 
   envoy:
-    image: envoyproxy/envoy:v1.31-latest
+    build: 
+      context: ../../envoy
+      args:
+        - WAZUH_MANAGER_IP=54.251.190.103
+        - WAZUH_AGENT_NAME=sample-nodejs-envoy-agent-002
     networks:
       - sample-nodejs-network
     volumes:
-      - ../../envoy/envoy.yaml:/etc/envoy/envoy.yaml
-      - ./logs/envoy:/var/log/envoy
+      - ./logs/envoy:/var/log/envoy/tap
     ports:
       - "8080:8080"
     environment:
-      - ENVOY_UID=0
-      - ENVOY_GID=0
+      ENVOY_UID: 0
+      ENVOY_GID: 0
+    privileged: true
+    user: root
 
 networks:
   sample-nodejs-network:

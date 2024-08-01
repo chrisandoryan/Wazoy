@@ -35,7 +35,7 @@ static_resources:
                   output_config:
                     sinks:
                       file_per_tap:
-                        path_prefix: /var/log/envoy/
+                        path_prefix: /var/log/envoy/tap/tap_log
                 
           - name: envoy.filters.http.router
             typed_config:
