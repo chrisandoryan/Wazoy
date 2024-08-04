@@ -6,7 +6,7 @@ ARG WAZUH_AGENT_NAME
 
 # Install Wazuh agent dependencies
 RUN apt-get update && \
-    apt-get install -y curl apt-transport-https lsb-release gnupg2
+    apt-get install -y curl apt-transport-https lsb-release gnupg2 cron jq
 
 # Add Wazuh repository and install Wazuh agent
 RUN curl -s https://packages.wazuh.com/key/GPG-KEY-WAZUH | apt-key add - && \
@@ -18,15 +18,21 @@ RUN curl -s https://packages.wazuh.com/key/GPG-KEY-WAZUH | apt-key add - && \
 COPY ./envoy.yaml /etc/envoy/envoy.yaml
 COPY ./wazuh-agent/ossec.conf /var/ossec/etc/ossec.conf
 
-# COPY ./wazuh/decoders/envoy_decoder.xml /var/ossec/etc/decoders/envoy_decoder.xml
-# COPY ./wazuh/rules/envoy_rules.xml /var/ossec/etc/rules/envoy_rules.xml
+COPY ./tap_aggregator.sh /opt/tap_aggregator.sh
+RUN chmod +x /opt/tap_aggregator.sh
+
+# Setup cron schedule to aggregate tap logs
+COPY ./tap_cron.txt /etc/cron.d/tap_cron
+RUN chmod 0644 /etc/cron.d/tap_cron
+RUN crontab /etc/cron.d/tap_cron
+RUN touch /var/log/cron.log
 
 # Configure Wazuh agent
 RUN sed -i "s:WAZUH_MANAGER_IP:${WAZUH_MANAGER_IP}:" /var/ossec/etc/ossec.conf
 RUN sed -i "s:WAZUH_AGENT_NAME:${WAZUH_AGENT_NAME}:" /var/ossec/etc/ossec.conf
 
 # Expose ports
-EXPOSE 8080 9000
+EXPOSE 8080 9901
 
 # Start both Envoy and Wazuh agent
-CMD ["/bin/bash", "-c", "/var/ossec/bin/wazuh-control start & /usr/local/bin/envoy -c /etc/envoy/envoy.yaml"]
+CMD ["/bin/bash", "-c", "cron & /var/ossec/bin/wazuh-control start & /usr/local/bin/envoy -c /etc/envoy/envoy.yaml"]

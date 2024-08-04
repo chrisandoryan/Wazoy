@@ -2,7 +2,6 @@ FROM debian:buster-slim
 
 ARG WAZUH_MANAGER_IP
 ARG WAZUH_AGENT_NAME
-ARG CONTAINER_ROOT_PATH
 
 # Install dependencies
 RUN apt-get update && \
@@ -21,7 +20,6 @@ RUN chmod +x /entrypoint.sh
 
 RUN sed -i "s:WAZUH_MANAGER_IP:${WAZUH_MANAGER_IP}:" /var/ossec/etc/ossec.conf
 RUN sed -i "s:WAZUH_AGENT_NAME:${WAZUH_AGENT_NAME}:" /var/ossec/etc/ossec.conf
-RUN sed -i "s:CONTAINER_ROOT_PATH:${CONTAINER_ROOT_PATH}:" /var/ossec/etc/ossec.conf
 
 # Start the Wazuh agent
 ENTRYPOINT ["/entrypoint.sh"]
