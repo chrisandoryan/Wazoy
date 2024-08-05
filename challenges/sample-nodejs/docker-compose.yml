@@ -6,33 +6,33 @@ services:
       context: ./app
       args:
         - WAZUH_MANAGER_IP=54.251.190.103
-        - WAZUH_AGENT_NAME=sample-nodejs-app-agent-003
+        - WAZUH_AGENT_NAME=sample-nodejs-app-agent-005-alpha
     networks:
       - sample-nodejs-network
     expose:
       - 3000
 
-  app-wazuh-agent:
-    build: 
-      context: ../wazuh-agent-sidecar
-      args:
-        - WAZUH_MANAGER_IP=54.251.190.103
-        - WAZUH_AGENT_NAME=sample-nodejs-agent-003
-    networks:
-      - sample-nodejs-network
-    expose:
-      - 1514
+  # app-wazuh-agent:
+  #   build: 
+  #     context: ../wazuh-agent-sidecar
+  #     args:
+  #       - WAZUH_MANAGER_IP=54.251.190.103
+  #       - WAZUH_AGENT_NAME=sample-nodejs-agent-005-alpha
+  #   networks:
+  #     - sample-nodejs-network
+  #   expose:
+  #     - 1514
 
   envoy:
     build: 
       context: ../../envoy
       args:
         - WAZUH_MANAGER_IP=54.251.190.103
-        - WAZUH_AGENT_NAME=sample-nodejs-envoy-agent-003
+        - WAZUH_AGENT_NAME=sample-nodejs-envoy-agent-005-alpha
     networks:
       - sample-nodejs-network
     volumes:
-      - ./logs/envoy:/var/log/envoy/tap
+      - ./logs/envoy:/var/log/envoy
     ports:
       - "8080:8080"
       - "9901:9901"

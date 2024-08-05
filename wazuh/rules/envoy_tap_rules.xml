@@ -1,5 +1,5 @@
 <group name="envoy,">
-  <rule id="999665" level="2">
+  <rule id="100005" level="3">
     <decoded_as>json</decoded_as>
     <description>Envoy HTTP Request Log with Body Data</description>
     <group>envoy</group>
