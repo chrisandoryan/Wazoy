@@ -1,8 +1,8 @@
 # Use the official Envoy image as a base
 FROM envoyproxy/envoy:v1.31-latest
 
-ARG WAZUH_MANAGER_IP
-ARG WAZUH_AGENT_NAME
+# ARG WAZUH_MANAGER_IP
+# ARG WAZUH_AGENT_NAME
 
 # Install Wazuh agent dependencies
 RUN apt-get update && \
