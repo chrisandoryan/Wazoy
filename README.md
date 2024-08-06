@@ -12,3 +12,4 @@ This framework helps create web exploitation CTF challenges with custom logging 
 1. Copy the challenge template:
    ```sh
    cp -r templates/challenge-template/ challenges/challenge1/
+

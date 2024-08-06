@@ -47,9 +47,13 @@ static_resources:
                   match:
                     any_match: true
                   output_config:
+                    streaming: false
+                    max_buffered_rx_bytes: 5000
+                    max_buffered_tx_bytes: 5000
                     sinks:
-                      file_per_tap:
-                        path_prefix: /var/log/envoy/tap/tap_log
+                      - format: JSON_BODY_AS_STRING
+                        file_per_tap:
+                          path_prefix: /var/log/envoy/tap/tap_log
                 
           - name: envoy.filters.http.router
             typed_config:

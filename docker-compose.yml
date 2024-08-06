@@ -19,8 +19,6 @@ services:
       - "8080:8080"
       - "9901:9901"
     environment:
-      ENVOY_UID: 0
-      ENVOY_GID: 0
       WAZUH_MANAGER_IP: "54.251.190.103"
       WAZUH_AGENT_NAME: "envoy-agent"
       APP_HOST: "app-backend"

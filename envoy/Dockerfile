@@ -31,9 +31,6 @@ RUN touch /var/log/cron.log
 # RUN sed -i "s:WAZUH_MANAGER_IP:${WAZUH_MANAGER_IP}:" /var/ossec/etc/ossec.conf
 # RUN sed -i "s:WAZUH_AGENT_NAME:${WAZUH_AGENT_NAME}:" /var/ossec/etc/ossec.conf
 
-# Expose ports
-EXPOSE 8080 9901
-
 # Copy and run entrypoint script
 COPY ./entrypoint.sh /opt/entrypoint.sh
 RUN chmod +x /opt/entrypoint.sh 
