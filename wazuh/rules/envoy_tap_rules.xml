@@ -1,8 +1,0 @@
-<group name="envoy,">
-  <rule id="100005" level="3">
-    <decoded_as>json</decoded_as>
-    <description>Envoy HTTP Request Log with Body Data</description>
-    <group>envoy</group>
-    <field name="http_buffered_trace.request.body.as_bytes">\.</field>
-  </rule>
-</group>

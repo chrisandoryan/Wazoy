@@ -1,0 +1,30 @@
+version: '3'
+
+services:
+  app-backend:
+    build: 
+      context: ./challenges/backend/app
+      args:
+        - WAZUH_MANAGER_IP=54.251.190.103
+        - WAZUH_AGENT_NAME=chall-app-agent-005-alpha
+    expose:
+      - 3000
+
+  envoy-backend:
+    build:
+      context: ./envoy
+    volumes:
+      - ./challenges/backend/logs/envoy:/var/log/envoy
+    ports:
+      - "8080:8080"
+      - "9901:9901"
+    environment:
+      ENVOY_UID: 0
+      ENVOY_GID: 0
+      WAZUH_MANAGER_IP: "54.251.190.103"
+      WAZUH_AGENT_NAME: "envoy-agent"
+      APP_HOST: "app-backend"
+      APP_PORT: 3000
+      ENVOY_PORT: 8080
+    privileged: true
+    user: root
