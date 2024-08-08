@@ -26,18 +26,23 @@ Spawn spawn bang bang challenge development.\
 ¯\\_(ツ)_/¯
 
 ### Sidecar VEnvoy to Challenge Container
-A prebuilt version of VEnvoy can be obtained from [Docker Hub](https://hub.docker.com/repository/docker/siahaan/venvoy).
 
-Adjust your `docker-compose.yml` to include VEnvoy container. As a sidecar deployment, one challenge container will need one VEnvoy container.
+You can obtain a prebuilt version of VEnvoy from [siahaan/venvoy](https://hub.docker.com/repository/docker/siahaan/venvoy) on Docker Hub.
+
+To use VEnvoy for your CTF challenge, adjust your `docker-compose.yml` to include the VEnvoy container in the same network. As a sidecar deployment, **one challenge container will need one VEnvoy container**.
+
 ```
 version: '3'
 
 services:
+  
+  # CTF Challenge Container
   app-backend:
-    build: ./app-backend/
+    build: ./app
     expose:
       - 5000
-
+  
+  # VEnvoy Container
   venvoy:
     image: siahaan/venvoy
     environment:
@@ -45,17 +50,18 @@ services:
       APP_HOST: app-backend
       APP_PORT: 5000
       ENTRY_PORT: 8082 
-    privileged: true 
-    user: root 
     ports:
-      - 8082:8082
+      - <anyport>:8082
     
 ```
 
 There are a few things to configure:
-- a
-- b
-- c
+- WAZUH_MANAGER_IP: IP address of your Wazuh server.
+- APP_HOST: Hostname or service name of your challenge container (e.g., app-backend).
+- APP_PORT: Port on which the challenge service is running internally (e.g., 5000).
+- ENTRY_PORT:  Port on which VEnvoy listens (e.g., 8082).
+
+Ensure that the `ENTRY_PORT` specified in the environment variables (e.g., `8082`) matches the port mapping in the docker-compose.yml file (e.g., `<anyport>:8082`).
 
 ### Install Custom Decoder via Wazuh Dashboard
 
