@@ -1,5 +1,0 @@
-<decoder name="ve_wazuh_decoder">
-  <prematch>^\{"time":".*"\}$</prematch>
-  <regex>^\{"time":"(\S+)", "ip":"(\S+)", "requestBody":"(.*)"\}$</regex>
-  <order>json</order>
-</decoder>

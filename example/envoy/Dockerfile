@@ -1,6 +1,9 @@
 # Use the official Envoy image as a base
 FROM envoyproxy/envoy:v1.31-latest
 
+# ARG WAZUH_MANAGER_IP
+# ARG WAZUH_AGENT_NAME
+
 # Install Wazuh agent dependencies
 RUN apt-get update && \
     apt-get install -y curl apt-transport-https lsb-release gnupg2 cron jq gettext-base
@@ -23,6 +26,10 @@ COPY ./tap_cron.txt /etc/cron.d/tap_cron
 RUN chmod 0644 /etc/cron.d/tap_cron
 RUN crontab /etc/cron.d/tap_cron
 RUN touch /var/log/cron.log
+
+# Configure Wazuh agent (this was moved to entrypoint.sh script)
+# RUN sed -i "s:WAZUH_MANAGER_IP:${WAZUH_MANAGER_IP}:" /var/ossec/etc/ossec.conf
+# RUN sed -i "s:WAZUH_AGENT_NAME:${WAZUH_AGENT_NAME}:" /var/ossec/etc/ossec.conf
 
 # Copy and run entrypoint script
 COPY ./entrypoint.sh /opt/entrypoint.sh

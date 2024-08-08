@@ -1,0 +1,20 @@
+version: '3'
+
+services:
+  app:
+    build: 
+      context: ./challenges/backend/app
+    expose:
+      - "3000"
+
+  venvoy:
+    image: siahaan/venvoy
+    environment:
+      WAZUH_MANAGER_IP: 54.251.190.103
+      APP_HOST: app
+      APP_PORT: 5000
+      ENTRY_PORT: 8082 
+    privileged: true 
+    user: root 
+    ports:
+      - 8082:8082
