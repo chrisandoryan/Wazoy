@@ -63,28 +63,30 @@ To start, there are few basic things to configure:
 
 Ensure that the `ENTRY_PORT` specified in the environment variables (e.g., `8082`) matches the port mapping in the `docker-compose.yml` file (e.g., `<anyport>:8082`).
 
-### 3. Install Custom Decoder via Wazuh Dashboard
+### 3. Install Custom Decoder to Wazuh Dashboard
 
-You need to upload custom decoders and rules compatible with VEnvoy for Wazuh to process the collected logs. The decoders and rules are located in `wazuh/decoders` and `wazuh/rules` directory.
+To process VEnvoy logs in Wazuh, upload custom decoders and rules into Wazuh Dashboard.
 
 **Access the Wazuh Dashboard**
-- Open your web browser and navigate to the Wazuh Dashboard.
-- Log in with your credentials.
+
+Open your browser, navigate to the Wazuh Dashboard, and log in.
 
 **Upload Custom Decoders**
-- In the Wazuh Dashboard, go to `Settings > Decoders`.
-- Click on `Upload` or `Add Decoder` (depending on your version).
-- Upload all files located in `wazuh/decoders` directory to Wazuh Dashboard.
+
+- Go to `Settings > Decoders`.
+- Click `Upload` or `Add Decoder`.
+- Upload all files from the `./wazuh/decoders` directory to Wazuh Dashboard.
 
 **Upload Custom Rules**
+
 - Go to `Settings > Rules`.
-- Click on `Upload` or `Add Rule`.
-- Upload all files located in `wazuh/rules` directory to Wazuh Dashboard.
+- Click `Upload` or `Add Rule`.
+- Upload all files from the `./wazuh/rules` directory to Wazuh Dashboard.
 
 **Apply Changes**
 
-After uploading, you may need to restart the Wazuh manager for changes to take effect.
+Restart the Wazuh manager for changes to take effect.
 
-## Understanding VEnvoy Alerts
+## Understanding Alerts
 
 
