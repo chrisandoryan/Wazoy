@@ -21,15 +21,13 @@ Those files will automatically be transported to Wazuh and accessible via Wazuh 
 
 ## Getting Started
 ### 1. Setup Your Challenge Container
-Well, just do your thing.\
-Spawn spawn bang bang challenge development.\
-¯\\_(ツ)_/¯
+Well, just do your thing. ¯\\_(ツ)_/¯
 
 ### 2. Sidecar VEnvoy to Challenge Container
 
-You can obtain a prebuilt version of VEnvoy from [siahaan/venvoy](https://hub.docker.com/repository/docker/siahaan/venvoy) on Docker Hub.
+To use VEnvoy for your CTF challenge, add VEnvoy configuration to the `docker-compose.yml`. As a sidecar deployment, **one CTF challenge container will need one VEnvoy container**.
 
-To use VEnvoy for your CTF challenge, adjust your `docker-compose.yml` to include the VEnvoy container(s). As a sidecar deployment, **one CTF challenge container will need one VEnvoy container**.
+You can obtain a prebuilt version of VEnvoy from [siahaan/venvoy](https://hub.docker.com/repository/docker/siahaan/venvoy) on Docker Hub.
 
 ```
 version: '3'
@@ -56,16 +54,16 @@ services:
 ```
 
 To start, there are few basic things to configure:
-- WAZUH_MANAGER_IP: IP address of your Wazuh server.
-- APP_HOST: Hostname or service name of your challenge container (e.g., app).
-- APP_PORT: Port on which the challenge service is running internally (e.g., 5000).
-- ENTRY_PORT:  Port on which VEnvoy listens (e.g., 8082).
+- `WAZUH_MANAGER_IP`: IP address of your Wazuh server.
+- `APP_HOST`: Hostname or service name of your challenge container (e.g., app).
+- `APP_PORT`: Port on which the challenge service is running internally (e.g., 5000).
+- `ENTRY_PORT`:  Port on which VEnvoy listens (e.g., 8082).
 
 Ensure that the `ENTRY_PORT` specified in the environment variables (e.g., `8082`) matches the port mapping in the `docker-compose.yml` file (e.g., `<anyport>:8082`).
 
 ### 3. Install Custom Decoder to Wazuh Dashboard
 
-To process VEnvoy logs in Wazuh, upload custom decoders and rules into Wazuh Dashboard.
+To process VEnvoy logs in Wazuh, you need to upload custom decoders and rules into Wazuh Dashboard.
 
 **Access the Wazuh Dashboard**
 
