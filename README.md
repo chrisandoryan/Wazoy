@@ -21,8 +21,40 @@ Those files will automatically be transported to Wazuh and accessible via Wazuh 
 
 ## Getting Started
 ### Setup Your Challenge Container
+Well, just do your thing. ¯\\_(ツ)_/¯
+Spawn spawn go go challenge development.
 
 ### Sidecar VEnvoy to Challenge Container
+VEnvoy can be obtained from [Docker Hub](https://hub.docker.com/repository/docker/siahaan/venvoy).
+
+Adjust your `docker-compose.yml` to include VEnvoy container. As a sidecar deployment, one challenge container will need one VEnvoy container.
+```
+version: '3'
+
+services:
+  app-backend:
+    build: ./app-backend/
+    expose:
+      - 5000
+
+  venvoy:
+    image: siahaan/venvoy
+    environment:
+      WAZUH_MANAGER_IP: <ip_to_wazuh_server>
+      APP_HOST: app-backend
+      APP_PORT: 5000
+      ENTRY_PORT: 8082 
+    privileged: true 
+    user: root 
+    ports:
+      - 8082:8082
+    
+```
+
+There are a few things to configure:
+- a
+- b
+- c
 
 ### Install Custom Decoder via Wazuh Dashboard
 
