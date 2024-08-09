@@ -96,14 +96,20 @@ VEnvoy generates two types of alerts:
 Both alert types share the same Request ID (from the `data.request_id` field), enabling correlation and filtering in the Wazuh Dashboard.
 
 ### FAQ: How to inspect body data of a request?
-Identify `data.request_id` of a request recorded in **Envoy HTTP Access Log** (10555) alert. Then, filter every **Envoy HTTP Request Log with Body Data** (10556) alerts that have the same `data.request_id`
+
+![alt text](./graphics/filter-by-requestid.png)
+
+Identify `data.request_id` of a request recorded in **Envoy HTTP Access Log** (105555) alert. Then, filter every **Envoy HTTP Request Log with Body Data** (105556) alerts that have the same `data.request_id`.
 
 ### FAQ: How to detect if certain payload is contained in the traffic?
 To check if a specific payload is present in the HTTP request body, use `data.http_buffered_trace.request.body.as_string` in **Envoy HTTP Request Log with Body Data** (105556) alerts.
 
 To check if a specific payload is present in the HTTP response body, use `data.http_buffered_trace.response.body.as_string` in **Envoy HTTP Request Log with Body Data** (105556) alerts.
 
-You can then create custom Wazuh rules based on these conditions.
+You can then create [custom Wazuh rules](https://documentation.wazuh.com/current/user-manual/ruleset/rules/custom.html) based on these conditions. 
 
 ### FAQ: How to filter request logs based on IP address?
-The IP address is available only in the **Envoy HTTP Access Log** (105555) alert, specifically in the `data.client_ip` field.
+
+![alt text](./graphics/filter-by-ipaddress.png)
+
+The IP address is available in the **Envoy HTTP Access Log** (105555) alert, specifically in the `data.client_ip` field.
