@@ -1,2 +1,2 @@
-docker build -t siahaan/venvoy .
-docker push siahaan/venvoy
+docker build -t siahaan/wazoy-ve .
+docker push siahaan/wazoy-ve
