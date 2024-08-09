@@ -8,7 +8,7 @@ services:
       - "3000"
 
   venvoy:
-    image: siahaan/venvoy
+    build: ../envoy
     environment:
       WAZUH_MANAGER_IP: 54.251.190.103
       APP_HOST: app

@@ -46,9 +46,9 @@ static_resources:
               log_format:
                 text_format: >
                   [%START_TIME%] "%REQ(:METHOD)% %REQ(X-ENVOY-ORIGINAL-PATH?:PATH)% %PROTOCOL%"
-                  %RESPONSE_CODE% %RESPONSE_FLAGS% %BYTES_RECEIVED% %BYTES_SENT% %DURATION% 
+                  %RESPONSE_CODE% %RESPONSE_FLAGS% %BYTES_RECEIVED% %BYTES_SENT% %DURATION%
                   %RESP(X-ENVOY-UPSTREAM-SERVICE-TIME)% "%DOWNSTREAM_REMOTE_ADDRESS_WITHOUT_PORT%" "%REQ(USER-AGENT)%"
-                  "%REQ(X-REQUEST-ID)%" "%REQ(:AUTHORITY)%" "%UPSTREAM_HOST%"\n
+                  "%REQ(X-REQUEST-ID)%" "%REQ(:AUTHORITY)%" "%UPSTREAM_HOST%"
           
           http_filters:
           - name: envoy.filters.http.tap
