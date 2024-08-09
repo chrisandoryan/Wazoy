@@ -17,7 +17,8 @@ static_resources:
           "@type": type.googleapis.com/envoy.extensions.filters.network.http_connection_manager.v3.HttpConnectionManager
           stat_prefix: ingress_http
           codec_type: AUTO
-          use_remote_address: true
+          # use_remote_address: true
+          # xff_num_trusted_hops: 3
           http2_protocol_options: {}          
           route_config:
             name: local_route
@@ -31,12 +32,24 @@ static_resources:
                 route:
                   cluster: service_cluster
 
+          original_ip_detection_extensions:
+          - name: envoy.http.original_ip_detection.xff
+            typed_config:
+              "@type": type.googleapis.com/envoy.extensions.http.original_ip_detection.xff.v3.XffConfig
+              xff_num_trusted_hops: 1
+
           access_log:
           - name: envoy.access_loggers.file
             typed_config:
               "@type": type.googleapis.com/envoy.extensions.access_loggers.file.v3.FileAccessLog
               path: /var/log/envoy/access.log
-
+              log_format:
+                text_format: |
+                  [%START_TIME%] "%REQ(:METHOD)% %REQ(X-ENVOY-ORIGINAL-PATH?:PATH)% %PROTOCOL%"
+                  %RESPONSE_CODE% %RESPONSE_FLAGS% %BYTES_RECEIVED% %BYTES_SENT% %DURATION%
+                  %RESP(X-ENVOY-UPSTREAM-SERVICE-TIME)% "%DOWNSTREAM_REMOTE_ADDRESS_WITHOUT_PORT%" "%REQ(USER-AGENT)%"
+                  "%REQ(X-REQUEST-ID)%" "%REQ(:AUTHORITY)%" "%UPSTREAM_HOST%"\n
+          
           http_filters:
           - name: envoy.filters.http.tap
             typed_config:
@@ -55,7 +68,7 @@ static_resources:
                       - format: JSON_BODY_AS_STRING
                         file_per_tap:
                           path_prefix: /var/log/envoy/tap/tap_log
-                
+      
           - name: envoy.filters.http.router
             typed_config:
               "@type": type.googleapis.com/envoy.extensions.filters.http.router.v3.Router    

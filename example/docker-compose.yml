@@ -13,6 +13,9 @@ services:
       WAZUH_MANAGER_IP: 54.251.190.103
       APP_HOST: app
       APP_PORT: 3000
-      ENTRY_PORT: 8082 
+      ENTRY_PORT: 8082
+    volumes:
+      - ./challenges/backend/logs/envoy:/var/log/envoy
     ports:
       - 8082:8082
+      - 9901:9901
