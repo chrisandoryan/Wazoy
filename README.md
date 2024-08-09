@@ -1,7 +1,7 @@
 # VEnvoy: Envoy + Wazuh for Visibility Enhancement (VE)
 
 ## Overview
-VEnvoy is a Dockerized Envoy Proxy with a pre-configured Wazuh Agent, designed to enhance the visibility and observability of a CTF challenge. VEnvoy automatically captures HTTP traffic, including both body and headers, and directly transports this data to Wazuh for examination if any issues arise with the challenge.
+VEnvoy is a Dockerized Envoy Proxy with a pre-configured Wazuh Agent, designed to capture and monitor traffic for any hosted CTF challenges. It automatically collects HTTP/TCP traffic, including both body and headers, and sends this data directly to Wazuh for analysis if any issues are detected.
 
 ## The Architecture 
 
@@ -95,15 +95,15 @@ VEnvoy generates two types of alerts:
 
 Both alert types share the same Request ID (from the `data.request_id` field), enabling correlation and filtering in the Wazuh Dashboard.
 
-### How to inspect body data of a request?
+### FAQ: How to inspect body data of a request?
 Identify `data.request_id` of a request recorded in **Envoy HTTP Access Log** (10555) alert. Then, filter every **Envoy HTTP Request Log with Body Data** (10556) alerts that have the same `data.request_id`
 
-### How to detect if certain payload is contained in the traffic?
+### FAQ: How to detect if certain payload is contained in the traffic?
 To check if a specific payload is present in the HTTP request body, use `data.http_buffered_trace.request.body.as_string` in **Envoy HTTP Request Log with Body Data** (105556) alerts.
 
 To check if a specific payload is present in the HTTP response body, use `data.http_buffered_trace.response.body.as_string` in **Envoy HTTP Request Log with Body Data** (105556) alerts.
 
 You can then create custom Wazuh rules based on these conditions.
 
-### How to filter request logs based on IP address?
+### FAQ: How to filter request logs based on IP address?
 The IP address is available only in the **Envoy HTTP Access Log** (105555) alert, specifically in the `data.client_ip` field.
