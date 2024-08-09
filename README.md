@@ -33,14 +33,12 @@ You can obtain a prebuilt version of VEnvoy from [siahaan/venvoy](https://hub.do
 version: '3'
 
 services:
-  
-  # CTF Challenge Container
   app:
     build: ./app
     expose:
       - 5000
   
-  # VEnvoy Container
+  # Add this VEnvoy container
   venvoy:
     image: siahaan/venvoy
     environment:
