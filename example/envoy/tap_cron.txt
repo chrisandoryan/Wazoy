@@ -1,1 +1,0 @@
-* * * * * /opt/tap_aggregator.sh

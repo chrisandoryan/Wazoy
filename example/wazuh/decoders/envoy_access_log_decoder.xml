@@ -1,9 +1,0 @@
-<decoder name="envoy_access">
-  <prematch>[\d\d\d\d-\d\d-\d\dT\d\d:\d\d:\d\d.\d\d\dZ] </prematch>
-</decoder>
-
-<decoder name="access_log">
-  <parent>envoy_access</parent>
-  <regex offset="after_parent">"(\w+) (\S+) (\S+)" (\d\d\d) (\w+) (\d+) (\d+) (\d+) (\d+) "(\S+)" "(\S+)" "(\S+)" "(\S+)" "(\S+)"</regex>
-  <order>request_method,uri,protocol,response_code,response_flag,bytes_received,bytes_sent,duration,envoy_upstream_time,forwarder_for,user_agent,request_id,request_authority,upstream_host</order>
-</decoder>
