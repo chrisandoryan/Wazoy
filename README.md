@@ -59,6 +59,7 @@ To start, there are few basic things to configure:
 - `APP_PORT`: Port on which the challenge service is running internally (e.g., 5000).
 - `ENTRY_PORT`:  Port on which Wazoy listens (e.g., 8082).
 
+> [!TIP]
 > Ensure that the `ENTRY_PORT` specified in the environment variables (e.g., `8082`) matches the port mapping in the `docker-compose.yml` file (e.g., `8082:8082`).
 
 ### 3. Install Custom Decoder to Wazuh Dashboard
