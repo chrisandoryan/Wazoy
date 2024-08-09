@@ -51,7 +51,7 @@ services:
       - 9901:9901 # Envoy admin port
     
 ```
-See the full version of [docker-compose.yml](./dist/docker-compose.yml) example.
+See the full version of [docker-compose.yml](./dist/docker-compose.yml) example here.
 
 To start, there are few basic things to configure:
 - `WAZUH_MANAGER_IP`: IP address of your Wazuh server.
@@ -59,7 +59,7 @@ To start, there are few basic things to configure:
 - `APP_PORT`: Port on which the challenge service is running internally (e.g., 5000).
 - `ENTRY_PORT`:  Port on which Wazoy listens (e.g., 8082).
 
-Ensure that the `ENTRY_PORT` specified in the environment variables (e.g., `8082`) matches the port mapping in the `docker-compose.yml` file (e.g., `8082:8082`).
+> Ensure that the `ENTRY_PORT` specified in the environment variables (e.g., `8082`) matches the port mapping in the `docker-compose.yml` file (e.g., `8082:8082`).
 
 ### 3. Install Custom Decoder to Wazuh Dashboard
 
@@ -100,7 +100,7 @@ Both alert types share the same Request ID (from the `data.request_id` field), e
 
 ![alt text](./graphics/filter-by-requestid.png)
 
-Identify `data.request_id` of a request recorded in **Envoy HTTP Access Log** (105555) alert. Then, filter every **Envoy HTTP Request Log with Body Data** (105556) alerts that have the same `data.request_id`.
+Identify Request ID (`data.request_id`) of a request recorded in **Envoy HTTP Access Log** (105555) alert. Then, filter every **Envoy HTTP Request Log with Body Data** (105556) alerts that have the same Request ID.
 
 ### FAQ: How to detect if certain payload is contained in the traffic?
 To check if a specific payload is present in the HTTP request body, use `data.http_buffered_trace.request.body.as_string` in **Envoy HTTP Request Log with Body Data** (105556) alerts.
