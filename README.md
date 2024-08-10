@@ -51,7 +51,7 @@ services:
       - 9901:9901 # Envoy admin port
     
 ```
-See the full version of [docker-compose.yml](./dist/docker-compose.yml) example here.
+See the full version of [docker-compose.yml](./dist/docker-compose.yml.example) example here.
 
 To start, there are few basic things to configure:
 - `WAZUH_MANAGER_IP`: IP address of your Wazuh server.
