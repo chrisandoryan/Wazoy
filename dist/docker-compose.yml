@@ -9,7 +9,7 @@ services:
   wazoy-app-frontend:
     image: siahaan/wazoy-ve
     environment:
-      WAZUH_MANAGER_IP: 54.251.190.103
+      WAZUH_MANAGER_IP: <your_wazuh_server_ip>
       APP_HOST: app-frontend
       APP_PORT: 3333
       ENTRY_PORT: 15151 
@@ -26,7 +26,7 @@ services:
   wazoy-app-backend:
     image: yourimage/app-frontend
     environment:
-      WAZUH_MANAGER_IP: 54.251.190.103
+      WAZUH_MANAGER_IP: <your_wazuh_server_ip>
       APP_HOST: app-backend
       APP_PORT: 5000
       ENTRY_PORT: 15252 

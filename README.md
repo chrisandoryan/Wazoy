@@ -98,7 +98,8 @@ Both alert types share the same Request ID (from the `data.request_id` field), e
 
 ### FAQ: How to inspect body data of a request?
 
-![alt text](./graphics/filter-by-requestid.png)
+<!-- ![alt text](./graphics/filter-by-requestid.png) -->
+![alt text](./graphics/105555-105556-log-correlation.png)
 
 Identify Request ID (`data.request_id`) of a request recorded in **Envoy HTTP Access Log** (105555) alert. Then, filter every **Envoy HTTP Request Log with Body Data** (105556) alerts that have the same Request ID.
 
@@ -109,8 +110,13 @@ To check if a specific payload is present in the HTTP response body, use `data.h
 
 You can then create [custom Wazuh rules](https://documentation.wazuh.com/current/user-manual/ruleset/rules/custom.html) based on these conditions. 
 
+![alt text](./graphics/http-body-data-log.png)
+
 ### FAQ: How to filter request logs based on IP address?
 
-![alt text](./graphics/filter-by-ipaddress.png)
+<!-- ![alt text](./graphics/filter-by-ipaddress.png) -->
+
+![alt text](./graphics/http-access-log.png)
 
 The IP address is available in the **Envoy HTTP Access Log** (105555) alert, specifically in the `data.client_ip` field.
+
