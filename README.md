@@ -7,7 +7,7 @@ Wazoy is a Dockerized Envoy Proxy with a pre-configured Wazuh Agent, designed to
 
 ### Basic Principles
 
-Wazoy operates as a Man-in-the-Middle (MITM) proxy, but not just for HTTP request. Wazoy currently supports TCP, HTTP, and UDP connections.
+Wazuh operates as a Man-in-the-Middle (MITM) proxy, positioned as an entry point to the CTF challenge container. As a **sidecar container**, Wazoy enables HTTP/TCP traffic monitoring without requiring any modifications to the CTF challenge container itself.
 
 <!-- For example, your CTF challenge runs on port `:5000`, and you configure Wazoy to listen on port `:8000`. Envoy will intercept and log all traffic, then redirect them to the `:5000` service. You can choose any port for Wazoy to listen on, not just `:8000`. -->
 
@@ -25,7 +25,10 @@ Well, just do your thing. ¯\\_(ツ)_/¯
 
 ### 2. Sidecar Wazoy to Challenge Container
 
-To use Wazoy for your CTF challenge, add Wazoy configuration to the `docker-compose.yml`. As a sidecar deployment, **one CTF challenge container will need one Wazoy container**.
+To use Wazoy for your CTF challenge, add Wazoy configuration to the `docker-compose.yml`.
+
+> [!IMPORTANT]  
+> As a sidecar deployment, **one CTF challenge service will need one Wazoy container**.
 
 You can obtain a prebuilt version of Wazoy from [siahaan/wazoy-ve](https://hub.docker.com/repository/docker/siahaan/wazoy-ve) on Docker Hub.
 
@@ -61,6 +64,9 @@ To start, there are few basic things to configure:
 
 > [!TIP]
 > Ensure that the `ENTRY_PORT` specified in the environment variables (e.g., `8082`) matches the port mapping in the `docker-compose.yml` file (e.g., `8082:8082`).
+
+> [!IMPORTANT]  
+> With Wazoy deployment, your service will be accessible from `http://<your_server_ip>:ENTRY_PORT` or `tcp://<your_server_ip>:ENTRY_PORT`
 
 ### 3. Install Custom Decoder to Wazuh Dashboard
 
